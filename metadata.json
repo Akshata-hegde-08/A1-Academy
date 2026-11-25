@@ -1,0 +1,8 @@
+{
+  "name": "A1 ACADEMY",
+  "description": "Your First Engineering Hub – Everything You Need to Learn, Practice and Prepare.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
