@@ -9,6 +9,7 @@ import {
   Upload,
 } from 'lucide-react';
 import { LAB_MODULES } from '../data/globalPagesData';
+import { CHEM_LAB_FILES } from '../data/labFiles';
 import { Breadcrumbs } from '../components/Breadcrumbs';
 import { NotFoundPage } from './NotFoundPage';
 import {
@@ -199,7 +200,9 @@ export const LabTopicPage: React.FC = () => {
       <div className="flex flex-col space-y-8">
         {topic.items.map((item) => {
           const entry = pdfEntries[item.id];
-
+          const files = lab.slug === 'chemistry' ? CHEM_LAB_FILES[Number(topic.number)] : undefined;
+          const category = item.labCategory.trim().toLowerCase();
+          const builtInFiles = category.startsWith('sci') ? files?.scilab?? [] : category.startsWith('record') && files?.record? [{ label: 'Record PDF',url: files.record}] : [];
           return (
             <section
               key={item.id}
@@ -229,7 +232,25 @@ export const LabTopicPage: React.FC = () => {
               />
 
               {/* Single-line Clickable Box */}
-              {entry ? (
+{builtInFiles.length > 0 ? (
+  <div className="flex flex-col gap-3">
+    {builtInFiles.map((file) => (
+      <a
+        key={file.url}
+        href={file.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="no-underline hover:no-underline group rounded-2xl a1-surface p-6 sm:p-7 border border-[var(--border-subtle)] hover:border-[var(--accent-blue)] transition-all flex items-center justify-between gap-4"
+      >
+        <span className="inline-flex items-center gap-3 text-base sm:text-lg font-semibold text-[var(--text-primary)]">
+          <FileText className="w-5 h-5 text-[var(--accent-blue)] shrink-0" />
+          <span>Click to open {file.label}</span>
+        </span>
+        <ExternalLink className="w-5 h-5 text-[var(--accent-blue)] shrink-0" />
+      </a>
+    ))}
+  </div>
+) : entry ? (
                 <a
                   href={entry.objectUrl}
                   target="_blank"
@@ -250,14 +271,14 @@ export const LabTopicPage: React.FC = () => {
                 >
                   <span className="inline-flex items-center gap-3 text-base sm:text-lg font-semibold text-[var(--text-primary)] group-hover:text-[var(--accent-blue)] transition-colors">
                     <FileText className="w-5 h-5 text-[var(--accent-blue)] shrink-0" />
-                    <span>Click to open PDF</span>
+                    <span>Click to open</span>
                   </span>
                   <ExternalLink className="w-5 h-5 text-[var(--text-secondary)] group-hover:text-[var(--accent-blue)] shrink-0 transition-colors" />
                 </button>
               )}
 
               {/* Direct access to add / replace / remove PDF for this section */}
-              <div className="flex flex-col items-start gap-2 pt-1">
+              <div className={builtInFiles.length > 0? 'hidden' : 'flex flex-col items-start gap-2 pt-1'}>
                 {entry ? (
                   <>
                     <span className="text-xs font-medium text-[var(--text-secondary)]">

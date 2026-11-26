@@ -1,0 +1,21 @@
+x = 0:0.5:9.0;
+x = x';
+
+y = [0, 64, 30, 22, 18, 18, 18, 14, 18, 18, ...
+     24, 36, 92, 578, 34, 28, 18,0,0];
+
+y = y';
+
+plot2d(x, y);
+
+xlabel("Volume of Potassium Dichromate added (mL)", "fontsize", 3);
+ylabel("$\frac{\Delta E}{\Delta V}$", "fontsize", 3);
+title("Potentiometric Titration", "fontsize", 4);
+
+xstring(7.0, 500, "Scale:");
+xstring(7.0, 470, "X-axis: 1 unit = 0.5 mL");
+xstring(7.0, 440, "Y-axis: 1 unit = 50");
+xstring(7.0, 370, "SRN: PES1UG26CS665");
+xstring(7.0, 330, "AKSHATA HEGDE")
+
+xgrid();

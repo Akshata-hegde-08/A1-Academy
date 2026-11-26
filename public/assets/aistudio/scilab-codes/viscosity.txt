@@ -1,0 +1,18 @@
+function y=yth(t,n)
+y=n(1)*t+n(2)
+endfunction
+m=2
+tm=[0.2; 0.5]
+ym=[0.61;0.68]
+n(1)=(ym(2)-ym(1))/(tm(2)-tm(1))
+n(2)=ym(2)-n(1)*tm(2)
+tt=linspace(0,1.1*max(tm),100)';
+yy=yth(tt,n);
+scf()
+plot(tm,ym, "kx")
+plot(tt,yy, "b-")
+xlabel("C", "fontsize", 3);
+ylabel("$\frac{nsp}{C}$", "fontsize", 3);
+title('Viscosity average molecular weight', "fontsize", 4);
+xstring(0.4,0.64,["Akshata Hegde"])
+xstring(0.4,0.63,["PES1UG26CS665"])

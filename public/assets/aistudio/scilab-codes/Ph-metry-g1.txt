@@ -1,0 +1,13 @@
+xlabel("Volume of NaOH in ml");
+ylabel("pH");
+xstring(6, 8.5, ['Scale:'])
+xstring(6, 08, ['x axis: 1cm = 0.5mL'])
+xstring(6, 07, ['y axis: 1cm = 1'])
+xstring(6,10,["Akshata Hegde"])
+xstring(6,9.5,["PES1UG26CS665"])
+i=0.0
+k=7.0
+x=[i:0.5:k]'
+y=[2.55,3.45,3.88,4.04,4.29,4.48,4.68,4.90,5.19,5.70,11.36,12.14,12.33,12.42,12.51]
+N=length(x)
+plot(x,y)

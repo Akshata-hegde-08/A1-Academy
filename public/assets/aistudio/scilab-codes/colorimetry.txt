@@ -1,0 +1,16 @@
+i=0.0
+k=10.0
+x=[i:2.0:k]'
+y=[0.0;0.03;0.06;0.10;0.15;0.16]
+X=[x ones(x)]
+a=X\y
+xx=[0.0:0.5:k]'
+yy=a(1)*xx+a(2)
+plot(xx,yy)
+plot2d(x,y,-1)
+
+xgrid()
+
+xtitle("","Volume of copper sulphate added(mL)","OD")
+
+xstring(7,0.16,"SRN : PES1UG26CS665")
