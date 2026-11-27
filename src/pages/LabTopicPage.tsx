@@ -93,6 +93,18 @@ export const LabTopicPage: React.FC = () => {
   if (!lab || !topic) {
     return <NotFoundPage />;
   }
+  const experimentNumber =
+  lab.topics.findIndex((t) => t.slug === topicSlug) + 1;
+
+const hideGraphSections =
+  lab.slug === 'chemistry' && [7, 8, 9].includes(Number(topic.number));
+
+const visibleItems = hideGraphSections
+  ? topic.items.filter(
+      (item) => {const category = item.labCategory.trim().toLowerCase();
+                return !category.startsWith('sci') && !category.startsWith('model');
+      })
+  : topic.items;
 
   const handleFileSelected = async (
     itemId: string,
@@ -198,11 +210,11 @@ export const LabTopicPage: React.FC = () => {
 
       {/* Topic Sections — Headings outside the box, single-line "Click to open PDF" box, 1 section per row */}
       <div className="flex flex-col space-y-8">
-        {topic.items.map((item) => {
+        {visibleItems.map((item) => {
           const entry = pdfEntries[item.id];
           const files = lab.slug === 'chemistry' ? CHEM_LAB_FILES[Number(topic.number)] : undefined;
           const category = item.labCategory.trim().toLowerCase();
-          const builtInFiles = category.startsWith('sci') ? files?.scilab?? [] : category.startsWith('record') && files?.record? [{ label: 'Record PDF',url: files.record}] : [];
+          const builtInFiles = category.startsWith('sci') ? files?.scilab?? [] : category.startsWith('model')? files?.graphs ?? [] : category.startsWith('record') && files?.record? [{ label: 'Record ',url: files.record}] : [];
           return (
             <section
               key={item.id}
